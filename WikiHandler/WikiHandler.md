@@ -1,1 +1,0 @@
-This directory deals with code directly relating to interfacing with MediaWiki.

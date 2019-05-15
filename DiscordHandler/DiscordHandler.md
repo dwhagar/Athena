@@ -1,1 +1,0 @@
-This directory contains code directly related to interfacing with Discord.
