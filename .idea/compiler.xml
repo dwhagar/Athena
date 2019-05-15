@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Athena" target="1.5" />
+      <module name="Athena" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
