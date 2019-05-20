@@ -14,7 +14,7 @@ public class Main {
         logger.info("Trying to start discord bot.");
         try {
             BotContainer.initBot();
-        } catch (LoginException | IOException e) {
+        } catch (IOException | LoginException e) {
             logger.error(e.getMessage());
         }
     }
