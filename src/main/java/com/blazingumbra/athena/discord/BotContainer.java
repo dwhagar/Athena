@@ -15,6 +15,7 @@ import java.io.IOException;
 
 public class BotContainer {
     private static Logger logger = LoggerFactory.getLogger(BotContainer.class);
+    static DiscordCommandHandler commandHandler;
 
     public static void initBot() throws IOException, LoginException {
         String token = getToken();
@@ -23,6 +24,7 @@ public class BotContainer {
                 .addEventListener(new Listener())
                 .setGame(Game.watching("Molten Aether Freeform Roleplay Network"))
                 .build();
+        commandHandler = new DiscordCommandHandler();
         logger.info("Bot brought up successfully.");
     }
     private static String getToken() throws IOException {
