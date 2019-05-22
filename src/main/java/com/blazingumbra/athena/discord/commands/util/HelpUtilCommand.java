@@ -1,9 +1,22 @@
 package com.blazingumbra.athena.discord.commands.util;
 
-public class HelpUtilCommand extends UtilCommand {
-    public String command;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.TextChannel;
 
+public class HelpUtilCommand extends UtilCommand {
     public HelpUtilCommand() {
+        this.module = "util";
         this.command = "ping";
+    }
+
+    @Override
+    public boolean checkPermission(Permission[] permissions, Member member) {
+        return false;
+    }
+
+    @Override
+    public boolean execute(TextChannel textChannel) {
+        return false;
     }
 }
