@@ -16,6 +16,7 @@ import java.io.IOException;
 public class BotContainer {
     private static Logger logger = LoggerFactory.getLogger(BotContainer.class);
     static DiscordCommandHandler commandHandler;
+    private static JDA jda;
 
     public static void initBot() throws IOException, LoginException {
         String token = getToken();
@@ -25,6 +26,7 @@ public class BotContainer {
                 .setGame(Game.watching("Molten Aether Freeform Roleplay Network"))
                 .build();
         commandHandler = new DiscordCommandHandler();
+        setJda(jda);
         logger.info("Bot brought up successfully.");
     }
     private static String getToken() throws IOException {
@@ -36,5 +38,13 @@ public class BotContainer {
         reader = new BufferedReader(new FileReader(config));
         token = reader.readLine();
         return token;
+    }
+
+    public static JDA getJda() {
+        return jda;
+    }
+
+    public static void setJda(JDA jdaa) {
+        jda = jdaa;
     }
 }
