@@ -12,11 +12,12 @@ public class PingUtilCommand extends UtilCommand {
 
     @Override
     public boolean checkPermission(Permission[] permissions, Member member) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean execute(TextChannel textChannel) {
-        return false;
+        textChannel.sendMessage("Pong!").queue();
+        return true;
     }
 }
