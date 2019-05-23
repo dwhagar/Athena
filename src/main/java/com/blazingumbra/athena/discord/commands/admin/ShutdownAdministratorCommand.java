@@ -1,5 +1,6 @@
 package com.blazingumbra.athena.discord.commands.admin;
 
+import com.blazingumbra.athena.discord.BotContainer;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public class ShutdownAdministratorCommand extends AdministratorCommand {
@@ -10,6 +11,7 @@ public class ShutdownAdministratorCommand extends AdministratorCommand {
 
     @Override
     public boolean execute(TextChannel textChannel) {
-        return false;
+        BotContainer.getJda().shutdown();
+        return true;
     }
 }
