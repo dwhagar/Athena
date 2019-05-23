@@ -19,6 +19,8 @@ public class LookupWikiCommand extends WikiCommand {
 
     @Override
     public boolean execute(TextChannel textChannel) {
+        Boolean executionSuccessfull = false;
+
         return false;
     }
 }
