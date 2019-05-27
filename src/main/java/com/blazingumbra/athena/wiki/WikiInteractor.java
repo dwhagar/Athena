@@ -112,23 +112,6 @@ public class WikiInteractor implements AutoCloseable{
         if(!loginResponse.hasSucceeded())
             throw new LoginFailedException(s);
     }
-    public EditResponse createPage(String title, String content, String csrfToken) throws IOException, URISyntaxException {
-        String encodedTitle = URLEncoder.encode(title, "UTF-8");
-        String encodedContent = URLEncoder.encode(content, "UTF-8");
-        String encodedToken = URLEncoder.encode(csrfToken, "UTF-8");
-        String pageContentAfterExecution;
-
-        String entityLiteral = "action=edit&format=json&title="+encodedTitle+"&text="+encodedContent+"&bot=1&token="+encodedToken;
-        HttpEntity entity = new StringEntity(entityLiteral);
-        URIBuilder uriBuilder = new URIBuilder(baseURI);
-        URI anURI = uriBuilder
-                .build();
-        HttpPost post = new HttpPost(anURI);
-        post.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        post.setEntity(entity);
-        pageContentAfterExecution = this.executeAndRead(post);
-        return gson.fromJson(pageContentAfterExecution, EditResponse.class);
-    }
 
     private String executeAndRead(HttpUriRequest aRequest) throws IOException {
         String s;
