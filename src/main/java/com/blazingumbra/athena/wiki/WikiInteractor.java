@@ -72,18 +72,6 @@ public class WikiInteractor implements AutoCloseable{
         return gson.fromJson(s, CsrfTokenResponse.class);
     }
 
-    private String executeAndRead(HttpUriRequest aRequest) throws IOException {
-        String s;
-
-        HttpResponse response = aClient.execute(aRequest);
-        HttpEntity responseEntity = response.getEntity();
-        InputStreamReader inputStreamReader = new InputStreamReader(responseEntity.getContent());
-        BufferedReader br = new BufferedReader(inputStreamReader);
-        s = br.readLine();
-        br.close();
-        logger.info("Read " + s + "from " + aRequest.toString());
-        return s;
-    }
     public String actionsearch(String query) throws IOException, URISyntaxException {
         WikiReader wikiReader = new WikiReader();
         String s;
@@ -172,6 +160,19 @@ public class WikiInteractor implements AutoCloseable{
         String s = this.executeAndRead(get);
         ParseResponse parseResponse = gson.fromJson(s, ParseResponse.class);
         return parseResponse.getParseObject().getWikitext().getText();
+    }
+
+    private String executeAndRead(HttpUriRequest aRequest) throws IOException {
+        String s;
+
+        HttpResponse response = aClient.execute(aRequest);
+        HttpEntity responseEntity = response.getEntity();
+        InputStreamReader inputStreamReader = new InputStreamReader(responseEntity.getContent());
+        BufferedReader br = new BufferedReader(inputStreamReader);
+        s = br.readLine();
+        br.close();
+        logger.info("Read " + s + "from " + aRequest.toString());
+        return s;
     }
 
     @Override
