@@ -11,16 +11,29 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class WikiSession {
     private HttpClient aClient;
     private Logger logger = LoggerFactory.getLogger(WikiSession.class);
 
-    public WikiSession() {
-        aClient = HttpClients.createDefault();
+    URI getBaseURI() {
+        return baseURI;
     }
 
-    public String getResult(HttpRequestBase aRequest) throws IOException {
+    private URI baseURI;
+
+    public WikiSession(String baseURL) {
+        aClient = HttpClients.createDefault();
+        try {
+            baseURI = new URI(baseURL);
+        } catch (URISyntaxException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    String getResult(HttpRequestBase aRequest) throws IOException {
         String s;
 
         HttpResponse response = aClient.execute(aRequest);

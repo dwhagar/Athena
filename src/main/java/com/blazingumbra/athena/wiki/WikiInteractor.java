@@ -148,20 +148,6 @@ public class WikiInteractor implements AutoCloseable{
 
     }
 
-    public String getPageText(String pageID) throws IOException, URISyntaxException {
-        URIBuilder uriBuilder = new URIBuilder(baseURI);
-        URI anURI = uriBuilder
-                .addParameter("action", "parse")
-                .addParameter("format", "json")
-                .addParameter("pageid", pageID)
-                .addParameter("prop", "wikitext")
-                .build();
-        HttpGet get = new HttpGet(anURI);
-        String s = this.executeAndRead(get);
-        ParseResponse parseResponse = gson.fromJson(s, ParseResponse.class);
-        return parseResponse.getParseObject().getWikitext().getText();
-    }
-
     private String executeAndRead(HttpUriRequest aRequest) throws IOException {
         String s;
 
