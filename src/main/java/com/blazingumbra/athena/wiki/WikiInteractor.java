@@ -72,26 +72,6 @@ public class WikiInteractor implements AutoCloseable{
         return gson.fromJson(s, CsrfTokenResponse.class);
     }
 
-    public String actionsearch(String query) throws IOException, URISyntaxException {
-        WikiReader wikiReader = new WikiReader();
-        String s;
-        String mainUrlBuilder;
-        String encodedQuery;
-        URI anURI;
-        URIBuilder uriBuilder = new URIBuilder(baseURI);
-
-        encodedQuery = URLEncoder.encode(query, "UTF-8");
-        anURI = uriBuilder
-                .addParameter("action", "opensearch")
-                .addParameter("format", "json")
-                .addParameter("redirects", "resolve")
-                .addParameter("search", encodedQuery)
-                .build();
-        s = wikiReader.readFrom(anURI.toURL());
-        logger.info("Got " +s + "from " + anURI.toURL().toString());
-        return s;
-    }
-
     private void login(String username, String password, String loginToken) throws IOException, URISyntaxException, LoginFailedException {
         String s;
         URIBuilder uriBuilder = new URIBuilder(baseURI);
