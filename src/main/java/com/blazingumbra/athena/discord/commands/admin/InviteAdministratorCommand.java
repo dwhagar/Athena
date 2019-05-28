@@ -5,9 +5,9 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public class InviteAdministratorCommand extends AdministratorCommand {
-    public InviteAdministratorCommand() {
-        module = "admin";
-        command = "invite";
+
+    public InviteAdministratorCommand(String module, String command) {
+        super(module, command);
     }
 
     @Override

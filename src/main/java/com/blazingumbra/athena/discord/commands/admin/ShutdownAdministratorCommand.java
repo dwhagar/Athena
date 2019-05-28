@@ -4,9 +4,8 @@ import com.blazingumbra.athena.discord.BotContainer;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public class ShutdownAdministratorCommand extends AdministratorCommand {
-    public ShutdownAdministratorCommand() {
-        module = "admin";
-        command = "shutdown";
+    public ShutdownAdministratorCommand(String module, String command) {
+        super(module, command);
     }
 
     @Override
