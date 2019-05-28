@@ -22,7 +22,7 @@ public class WikiAuthenticator {
         URIBuilder uriBuilder;
         HttpGet get;
 
-        WikiSession aWikiSession = new WikiSession("https://home.blazingumbra.com/w/api.php");
+        WikiSession aWikiSession = new WikiSession("https://home.blazingumbra.com/wiki/api.php");
         Gson gson = new Gson();
 
         uriBuilder = new URIBuilder(aWikiSession.getBaseURI());
