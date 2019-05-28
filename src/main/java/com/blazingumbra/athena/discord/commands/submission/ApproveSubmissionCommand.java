@@ -12,7 +12,7 @@ public class ApproveSubmissionCommand extends SubmissionCommand {
     }
 
     @Override
-    public boolean checkPermission(Permission[] permissions, Member member) {
+    public boolean checkPermission(Member member, Permission... permissions) {
         return false;
     }
 

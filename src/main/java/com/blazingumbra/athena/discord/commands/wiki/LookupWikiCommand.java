@@ -13,7 +13,7 @@ public class LookupWikiCommand extends WikiCommand {
     }
 
     @Override
-    public boolean checkPermission(Permission[] permissions, Member member) {
+    public boolean checkPermission(Member member, Permission... permissions) {
         return false;
     }
 

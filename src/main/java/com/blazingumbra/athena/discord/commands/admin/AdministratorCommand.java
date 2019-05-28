@@ -9,8 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AdministratorCommand extends AbstractDiscordCommand {
+    public AdministratorCommand(String module, String command) {
+        super(module, command);
+    }
+
     @Override
-    public boolean checkPermission(Permission[] permissions, Member member) {
+    public boolean checkPermission(Member member, Permission... permissions) {
         List<Permission> memberPermission = member.getPermissions();
         return memberPermission.containsAll(Arrays.asList(permissions));
     }

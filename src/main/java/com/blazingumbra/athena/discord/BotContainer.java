@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class BotContainer {
     private static Logger logger = LoggerFactory.getLogger(BotContainer.class);
-    static DiscordCommandHandler commandHandler;
     private static JDA jda;
 
     public static void initBot() throws IOException, LoginException {
@@ -25,7 +24,6 @@ public class BotContainer {
                 .addEventListener(new Listener())
                 .setGame(Game.watching("Molten Aether Freeform Roleplay Network"))
                 .build();
-        commandHandler = new DiscordCommandHandler();
         setJda(jda);
         logger.info("Bot brought up successfully.");
     }

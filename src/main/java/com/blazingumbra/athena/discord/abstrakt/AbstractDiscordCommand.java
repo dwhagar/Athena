@@ -12,7 +12,30 @@ public abstract class AbstractDiscordCommand {
     protected String parameters;
     protected Logger logger = LoggerFactory.getLogger("athena.command");
 
-    public abstract boolean checkPermission(Permission[] permissions, Member member);
+    public AbstractDiscordCommand(String module, String command, String parameters) {
+        this.module = module;
+        this.command = command;
+        this.parameters = parameters;
+    }
+
+    public AbstractDiscordCommand(String module, String command) {
+        this.module = module;
+        this.command = command;
+    }
+
+    public abstract boolean checkPermission(Member member, Permission... permissions);
 
     public abstract boolean execute(TextChannel textChannel);
+
+    public String getModule() {
+        return module;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public String getParameters() {
+        return parameters;
+    }
 }

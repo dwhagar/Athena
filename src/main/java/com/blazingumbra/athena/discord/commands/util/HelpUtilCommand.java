@@ -11,7 +11,7 @@ public class HelpUtilCommand extends UtilCommand {
     }
 
     @Override
-    public boolean checkPermission(Permission[] permissions, Member member) {
+    public boolean checkPermission(Member member, Permission... permissions) {
         return false;
     }
 
