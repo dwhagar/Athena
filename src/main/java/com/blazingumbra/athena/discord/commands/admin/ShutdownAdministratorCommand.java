@@ -11,6 +11,7 @@ public class ShutdownAdministratorCommand extends AdministratorCommand {
 
     @Override
     public boolean execute(TextChannel textChannel) {
+        textChannel.sendMessage("Shutting down...").complete();
         BotContainer.getJda().shutdown();
         return true;
     }
