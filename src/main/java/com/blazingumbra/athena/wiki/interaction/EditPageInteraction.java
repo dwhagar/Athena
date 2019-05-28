@@ -16,16 +16,14 @@ public class EditPageInteraction extends AbstractWikiInteraction{
         super();
     }
 
-    public static EditResponse execute(WikiSession aWikiSession, String parameter) throws IOException, URISyntaxException {
-        String[] parameterArray;
+    public static EditResponse execute(WikiSession aWikiSession, PageProperty pageProperty) throws IOException, URISyntaxException {
         String pageID;
         String content;
         String csrfToken;
 
-        parameterArray = parameter.split(",");
-        pageID = parameterArray[0];
-        content = parameterArray[1];
-        csrfToken = parameterArray[2];
+        pageID = pageProperty.getPageKey();
+        content = pageProperty.getContent();
+        csrfToken = pageProperty.getCsrfToken();
 
         String encodedID = URLEncoder.encode(pageID, "UTF-8");
         String encodedContent = URLEncoder.encode(content, "UTF-8");

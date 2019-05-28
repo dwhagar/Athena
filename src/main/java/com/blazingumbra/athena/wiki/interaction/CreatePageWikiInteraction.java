@@ -12,16 +12,14 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
 public class CreatePageWikiInteraction extends AbstractWikiInteraction{
-    public static EditResponse execute(WikiSession aWikiSession, String parameter) throws IOException, URISyntaxException {
-        String[] parameterArray;
+    public static EditResponse execute(WikiSession aWikiSession, PageProperty pageProperty) throws IOException, URISyntaxException {
         String title;
         String content;
         String csrfToken;
 
-        parameterArray = parameter.split(",");
-        title = parameterArray[0];
-        content = parameterArray[1];
-        csrfToken = parameterArray[2];
+        title = pageProperty.getPageKey();
+        content = pageProperty.getContent();
+        csrfToken = pageProperty.getCsrfToken();
 
         String encodedTitle = URLEncoder.encode(title, "UTF-8");
         String encodedContent = URLEncoder.encode(content, "UTF-8");

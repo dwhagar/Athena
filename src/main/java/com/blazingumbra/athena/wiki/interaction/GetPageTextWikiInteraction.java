@@ -13,9 +13,8 @@ public class GetPageTextWikiInteraction extends AbstractWikiInteraction{
         super();
     }
 
-    public static String execute(WikiSession aWikiSession, String parameter) throws URISyntaxException, IOException {
+    public static String execute(WikiSession aWikiSession, String pageID) throws URISyntaxException, IOException {
         URIBuilder uriBuilder = new URIBuilder(aWikiSession.getBaseURI());
-        String pageID = parameter;
         URI anURI = uriBuilder
                 .addParameter("action", "parse")
                 .addParameter("format", "json")
