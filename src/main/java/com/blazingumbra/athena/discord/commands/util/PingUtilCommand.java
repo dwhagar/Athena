@@ -17,6 +17,7 @@ public class PingUtilCommand extends UtilCommand {
 
     @Override
     public boolean execute(TextChannel textChannel) {
+        logger.info("Caught Ping command.");
         textChannel.sendMessage("Pong!").queue();
         return true;
     }

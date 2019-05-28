@@ -67,6 +67,7 @@ public class Listener extends ListenerAdapter {
                 ShutdownAdministratorCommand command1 = new ShutdownAdministratorCommand();
                 if(command1.checkPermission(event.getMember(), Permission.ADMINISTRATOR))
                 {
+                    logger.info("Commencing shutdown invoked by User " +event.getAuthor().getName());
                     command1.execute(tc);
                 }
                 else
@@ -80,6 +81,7 @@ public class Listener extends ListenerAdapter {
                 InviteAdministratorCommand command1 = new InviteAdministratorCommand();
                 if(command1.checkPermission(event.getMember(), Permission.ADMINISTRATOR))
                 {
+                    logger.info("Invite URL requested by " + event.getAuthor().getName());
                     command1.execute(tc);
                 }
                 else
