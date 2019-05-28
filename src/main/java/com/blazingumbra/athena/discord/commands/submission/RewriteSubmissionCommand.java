@@ -5,10 +5,8 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public class RewriteSubmissionCommand extends SubmissionCommand {
-    private String parameter;
-    public RewriteSubmissionCommand(String parameter) {
-        command = "rewrite";
-        this.parameter = parameter;
+    public RewriteSubmissionCommand(String parameters) {
+        super(parameters);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.blazingumbra.athena.discord;
 
-import com.blazingumbra.athena.discord.commands.AbstractDiscordCommandRaw;
 import com.blazingumbra.athena.discord.commands.admin.InviteAdministratorCommand;
 import com.blazingumbra.athena.discord.commands.admin.ShutdownAdministratorCommand;
 import com.blazingumbra.athena.discord.commands.submission.ApproveSubmissionCommand;
@@ -17,13 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Listener extends ListenerAdapter {
-    Logger logger = LoggerFactory.getLogger(Listener.class);
+    private Logger logger = LoggerFactory.getLogger(Listener.class);
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         Message aMessage;
         String rawMessage;
         String[] bufferMessage;
-        AbstractDiscordCommandRaw commandRaw;
 
         aMessage = event.getMessage();
         rawMessage = aMessage.getContentRaw();
@@ -41,7 +39,7 @@ public class Listener extends ListenerAdapter {
         bufferMessage = rawMessage.split(" ");
         String module;
         String command;
-        String parameter;
+        String parameter = "";
 
         if(bufferMessage.length == 3)
         {
@@ -71,6 +69,11 @@ public class Listener extends ListenerAdapter {
                 {
                     command1.execute(tc);
                 }
+                else
+                {
+                    tc.sendMessage("Insufficient permissions.").queue();
+                    logger.info(event.getAuthor().getName()+ " had insufficient permissions for executing " + ShutdownAdministratorCommand.class.getName());
+                }
             }
             else if(command.equals("invite"))
             {
@@ -78,6 +81,11 @@ public class Listener extends ListenerAdapter {
                 if(command1.checkPermission(event.getMember(), Permission.ADMINISTRATOR))
                 {
                     command1.execute(tc);
+                }
+                else
+                {
+                    tc.sendMessage("Insufficient permissions.").queue();
+                    logger.info(event.getAuthor().getName()+ " had insufficient permissions for executing " + InviteAdministratorCommand.class.getName());
                 }
             }
         }
@@ -102,6 +110,11 @@ public class Listener extends ListenerAdapter {
                 if(command1.checkPermission(event.getMember(), Permission.ADMINISTRATOR))
                 {
                     command1.execute(tc);
+                }
+                else
+                {
+                    tc.sendMessage("Insufficient permissions.").queue();
+                    logger.info(event.getAuthor().getName()+ " had insufficient permissions for executing " + ApproveSubmissionCommand.class.getName());
                 }
             }
             else if(command.equals("rewrite"))

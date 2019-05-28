@@ -5,9 +5,9 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public class HelpUtilCommand extends UtilCommand {
-    public HelpUtilCommand() {
-        this.module = "util";
-        this.command = "ping";
+    public HelpUtilCommand()
+    {
+        super();
     }
 
     @Override

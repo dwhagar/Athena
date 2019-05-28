@@ -7,9 +7,9 @@ import net.dv8tion.jda.core.entities.TextChannel;
 public class LookupWikiCommand extends WikiCommand {
     private String parameter;
     public LookupWikiCommand(String parameter) {
+        super(parameter);
         module = "wiki";
         command = "lookup";
-        this.parameter =  parameter;
     }
 
     @Override

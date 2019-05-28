@@ -9,18 +9,14 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractDiscordCommand {
     protected String module;
     protected String command;
-    protected String parameters;
+    private String parameters;
     protected Logger logger = LoggerFactory.getLogger("athena.command");
 
-    public AbstractDiscordCommand(String module, String command, String parameters) {
-        this.module = module;
-        this.command = command;
-        this.parameters = parameters;
+    public AbstractDiscordCommand() {
     }
 
-    public AbstractDiscordCommand(String module, String command) {
-        this.module = module;
-        this.command = command;
+    public AbstractDiscordCommand(String parameters) {
+        this.parameters = parameters;
     }
 
     public abstract boolean checkPermission(Member member, Permission... permissions);
