@@ -1,48 +1,42 @@
-import { Client } from 'discord.js';
-import * as readline from 'readline';
-import * as fs from 'fs';
-import { once } from 'events';
-import { LookupCommand } from './commands/lookup-command';
+import { Client, GatewayDispatchEvents, IntentsBitField } from 'discord.js';
+import { LookupCommand } from './commands/lookup-command.js';
+import * as dotenv from 'dotenv';
+import { GatewayServer, SlashCreator } from 'slash-create';
 
-const readlineInterface = readline.createInterface(process.stdin, process.stdout);
-const readFileInterface = readline.createInterface(fs.createReadStream('.token'), process.stdout);
-
-async function askDiscordToken(question: string): Promise<string> 
-{
-	readlineInterface.setPrompt(question);
-	readlineInterface.prompt();
-
-	let [promise] = await once(readlineInterface, 'line');
-	readlineInterface.close();
-
-	return promise;
-}
-
-async function getDiscordToken(): Promise<string>
-{
-	let [promise] = await once(readFileInterface, 'line');
-	readFileInterface.close();
-	return promise;
-}
-
+const commands = [
+	LookupCommand
+];
 async function main() 
 {
-	const client = new Client();
-	// let token = await askDiscordToken('Enter bot token: ');
-	let token = await getDiscordToken();
+	const result = dotenv.config()
+
+	if (result.error) {
+		throw result.error
+	}
+	const client = new Client({ intents: [IntentsBitField.Flags.Guilds] });
+	let token = process.env.DISCORD_TOKEN;
+	let appID = process.env.DISCORD_APPID;
+	let publicKey = process.env.PUBLICKEY;
 
 	client.on('ready', () => {
 		console.log(`\nLogged in as ${client.user.tag}!`);
 	});
 
-	client.on('message', msg => {
-		//nested function. call only once console error
-		const message = msg.content;
-		if(message.startsWith("!!lookup"))
-		{
-			LookupCommand.handle(msg).catch(reason => console.log("Something went wrong while lookup: " + reason));
-		}
+	const creator = new SlashCreator({
+		applicationID: appID,
+		publicKey: publicKey,
+		token: token,
+		client,
 	});
+
+	creator
+		.withServer(
+			new GatewayServer((handler) =>
+				client.ws.on(GatewayDispatchEvents.InteractionCreate, handler)
+			)
+		)
+		.registerCommands(commands)
+		.syncCommands();
 
 	await client.login(token);
 	client.user.setActivity('the game.');

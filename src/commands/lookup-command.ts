@@ -1,26 +1,31 @@
-import { BaseCommand } from './base-command';
-import { Message } from 'discord.js';
 import { request } from 'https';
+import { CommandContext, CommandOptionType, SlashCommand, SlashCreator } from 'slash-create';
 
-export class LookupCommand extends BaseCommand
-{
+export class LookupCommand extends SlashCommand {
+	constructor(creator: SlashCreator) {
+		super(creator, {
+			name: "lookup",
+			description: "Searches the wiki for the specified phrase.",
+			options: [
+				{
+					type: CommandOptionType.STRING,
+					name: "query",
+					description: "Query to search the wiki for",
+					required: true
+				}
+			],
+			guildIDs: null
+		});
+	}
+
 	private static wikiAdress: string = "https://home.moltenaether.com/wiki/api.php";
 	private static searchParameter: string = "?action=opensearch&format=json&redirects=resolve&search=";
 	public static searchAdress: string = LookupCommand.wikiAdress + LookupCommand.searchParameter;
 
-	public static async handle(msg: Message)
-	{
-		msg.channel.startTyping();
-		const textQuery = msg.content.replace("!!lookup", "");
-		if(!textQuery)
-		{
-			msg.channel.send("Enter a keyword.");
-		}
-		else {
-			const researchResult = await this.research(textQuery);
-			msg.channel.send(this.format(researchResult));
-		}
-		msg.channel.stopTyping();
+	async run(ctx: CommandContext) {
+		const textQuery = ctx.options.query;
+		const researchResult = await LookupCommand.research(textQuery);
+		return LookupCommand.format(researchResult);
 	}
 
 	public static async research(textQuery: string)
